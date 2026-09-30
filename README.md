@@ -4,7 +4,7 @@ Can switching a portfolio's allocation according to the market's **regime** (cal
 
 This project detects market regimes with a Hidden Markov Model (HMM) fitted on daily returns and volatility, then allocates between **SPY** (US stocks), **TLT** (long-term Treasuries) and **GLD** (gold) depending on the detected regime. Performance is evaluated with a walk-forward backtest that avoids lookahead bias.
 
-**Status:** Step 1 (data pipeline) complete. Regime detection, portfolio construction and backtest in progress.
+**Status:** Step 1 (data) and Step 2 (regime detection) complete. Portfolio construction and backtest in progress.
 
 ## Project structure
 
@@ -14,10 +14,12 @@ regime-portfolio/
 │   ├── raw/            # downloaded prices (re-created by src/data.py, not committed)
 │   └── processed/      # log returns
 ├── notebooks/
-│   └── 01_data_exploration.ipynb
+│   ├── 01_data_exploration.ipynb
+│   └── 02_regime_detection.ipynb
 ├── src/
 │   ├── config.py       # paths, seed, settings loaded from .env
-│   └── data.py         # download prices, compute returns, summary stats
+│   ├── data.py         # download prices, compute returns, summary stats
+│   └── regimes.py      # features, HMM fit, regime labels and statistics
 ├── model/              # saved models (pickled HMM)
 ├── reports/            # charts and final summary
 ├── requirements.txt
@@ -54,6 +56,6 @@ Run the notebooks in numerical order. The first run downloads data from Yahoo Fi
 | Stage | Code | Notebook | Output |
 |---|---|---|---|
 | 1. Data | `src/data.py` | `01_data_exploration.ipynb` | `data/raw/prices.csv`, `data/processed/returns.csv` |
-| 2. Regime detection | `src/regimes.py` *(next)* | `02_regime_detection.ipynb` | `model/hmm.pkl` |
+| 2. Regime detection | `src/regimes.py` | `02_regime_detection.ipynb` | `model/hmm.pkl` |
 | 3. Portfolio construction | `src/portfolio.py` | `03_portfolio.ipynb` | regime weights |
 | 4. Backtest | `src/backtest.py` | `04_backtest_results.ipynb` | `reports/` charts, metrics |
