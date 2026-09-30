@@ -1,0 +1,20 @@
+# secrets
+.env
+
+# virtual environment
+env/
+venv/
+
+# Python / Jupyter caches
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# downloaded data is re-created by src/data.py
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+
+# OS
+.DS_Store
